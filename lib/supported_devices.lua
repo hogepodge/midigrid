@@ -53,6 +53,10 @@ function supported_devices.find_midi_device_type(midi_device)
     -- Old launchpad mini's have user set hardware ID 1 - 16:
     -- e.g. ID 4 appears as midi_device.name "Launchpad Mini 4"
     return 'launchpad'
+  elseif (
+      string.lower(midi_device.name):find 'launchpad pro mk3 %d' or
+      string.lower(midi_device.name):find 'launchpad pro %d') then
+      return 'launchpad_rgb'
   else
     for _,device_def in pairs(supported_devices.midi_devices) do
       if sysex_ident_resp and device_def.sysex_ident then
